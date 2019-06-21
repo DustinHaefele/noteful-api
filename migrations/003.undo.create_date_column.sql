@@ -1,4 +1,4 @@
 
 
 ALTER TABLE noteful_notes
-  DROP COLUMN IF EXISTS date_moddified;
+  DROP COLUMN IF EXISTS date_modified;

@@ -1,4 +1,4 @@
 
 ALTER TABLE noteful_notes
   ADD COLUMN 
-  date_moddified TIMESTAMP DEFAULT now();
+  date_modified TIMESTAMP DEFAULT now();

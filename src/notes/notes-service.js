@@ -11,9 +11,9 @@ const NotesService = {
       .first();
   },
 
-  insertNote(db, folderInfo){
+  insertNote(db, noteInfo){
     return db('noteful_notes')
-      .insert(folderInfo)
+      .insert(noteInfo)
       .returning('*')
       .then(rows=>rows[0]);
   },
