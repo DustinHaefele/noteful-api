@@ -33,9 +33,9 @@ When your new project is ready for deployment, add a new Heroku application with
 
 ***Write SQL migration scripts to create Noteful database with tables for folders and notes including relationships and CASCADES
 
-Write Note and Folder service objects for the new tables designed above.
+***Write Note and Folder service objects for the new tables designed above.
 
-Write routers to perform CRUD operations for Notes and Folders.
+***Write routers to perform CRUD operations for Notes and Folders.
 
 Write an Express server for the Noteful API with the endpoints /notes and /folders.
 
