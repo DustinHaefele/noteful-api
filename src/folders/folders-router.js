@@ -3,15 +3,15 @@ const express = require('express');
 const path = require('path');
 const FoldersService = require('./folders-service');
 
-const folderRouter = express.Router();
+const foldersRouter = express.Router();
 const jsonParser = express.json();
 
-//WILL NEED TO IMPLEMENT A KNEX INSTANCE OF THE DATABASE ON EACH ROUTE
-const db = 'my KNEX database';
+//need to sanitize necessary data
 
-folderRouter
+foldersRouter
   .route('/')
   .get((req, res, next) => {
+    const db = req.app.get('db');
     FoldersService.getAllFolders(db)
       .then(folders => {
         res.json(folders);
@@ -19,6 +19,7 @@ folderRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
+    const db = req.app.get('db');
     const { folder_name } = req.body;
 
     if(!folder_name){
@@ -27,7 +28,7 @@ folderRouter
 
     const folder = { folder_name };
 
-    FoldersService(db, folder)
+    FoldersService.insertFolder(db, folder)
       .then(folder => {
         res
           .status(201)
@@ -37,9 +38,10 @@ folderRouter
       .catch(next);
   });
 
-folderRouter
+foldersRouter
   .route('/:folderId')
   .all((req,res,next) =>{
+    const db = req.app.get('db');
     const id = req.params.folderId;
 
     FoldersService.getById(db, id)
@@ -59,15 +61,17 @@ folderRouter
     res.json(res.folder);
   })
   .delete((req,res,next)=>{
+    const db = req.app.get('db');
     const id = req.params.folderId;
 
     FoldersService.deleteFolder(db,id)
-      .then(()=>{
+      .then(rows=>{
         res.status(204).end();
       })
       .catch(next);
   })
-  .patch((req,res,next)=>{
+  .patch(jsonParser,(req,res,next)=>{
+    const db = req.app.get('db');
     const {folder_name} = req.body;
 
     if(!folder_name){
@@ -88,4 +92,4 @@ folderRouter
       .catch(next);
   });
 
-module.exports = folderRouter;
+module.exports = foldersRouter;
