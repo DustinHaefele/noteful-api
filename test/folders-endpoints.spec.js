@@ -23,11 +23,11 @@ describe('Folders Endpoints', () => {
     return db.raw('truncate noteful_folders, noteful_notes cascade');
   });
 
-  before('empty table', () => {
+  before('reset sequence', () => {
     return db.raw('ALTER SEQUENCE noteful_folders_id_seq RESTART WITH 1');
   });
 
-  afterEach('empty table', () => {
+  afterEach('reset sequence', () => {
     // db.raw('truncate noteful_folders, noteful_notes cascade');
     return db.raw('ALTER SEQUENCE noteful_folders_id_seq RESTART WITH 1');
   });
@@ -43,7 +43,7 @@ describe('Folders Endpoints', () => {
     context('given folders in table', () => {
       const testFolders = makeFoldersArray();
 
-      beforeEach('insert articles', () => {
+      beforeEach('insert folders', () => {
         return db('noteful_folders').insert(testFolders);
       });
 
@@ -56,8 +56,8 @@ describe('Folders Endpoints', () => {
   });
 
   describe('POST api/folders', () => {
-    context('given articles in table', () => {
-      it('posts sent article and give it an id', () => {
+    context('given folders in table', () => {
+      it('posts sent folder and give it an id', () => {
         const folder = {
           folder_name: 'My Posted Folder'
         };
@@ -78,11 +78,11 @@ describe('Folders Endpoints', () => {
     context('table has data', () => {
       const testFolders = makeFoldersArray();
 
-      beforeEach('insert articles', () => {
+      beforeEach('insert folders', () => {
         return db('noteful_folders').insert(testFolders);
       });
 
-      it('responds 204 and removes the article', () => {
+      it('responds 204 and removes the folder', () => {
         const id = 2;
         const expected = [
           { id: 1, folder_name: 'test name 1' },
@@ -99,7 +99,7 @@ describe('Folders Endpoints', () => {
     context('table has data',()=>{
       const testFolders = makeFoldersArray();
 
-      beforeEach('insert articles', () => {
+      beforeEach('insert folders', () => {
         return db('noteful_folders').insert(testFolders);
       });
       it('Gets folder at given id',() =>{

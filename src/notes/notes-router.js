@@ -20,8 +20,8 @@ notesRouter
   })
   .post(jsonParser, (req, res, next) => {
     const db = req.app.get('db');
-    const { title, content, folders_id, date_moddified } = req.body;
-    const newNote = { title, content, folders_id, date_moddified };
+    const { title, content, folders_id, date_modified } = req.body;
+    const newNote = { title, content, folders_id, date_modified };
 
     if (!title || !content || !folders_id)
       return res.status(400).json({
@@ -73,8 +73,8 @@ notesRouter
     const db = req.app.get('db');
     const id = req.params.noteId;
     //NEED TO GET ALL THE NOTE FIELDS HERE.
-    const { title, content, date_moddified, folders_id } = req.body;
-    const updatedNote = { title, content, date_moddified, folders_id };
+    const { title, content, date_modified, folders_id } = req.body;
+    const updatedNote = { title, content, date_modified, folders_id };
 
     const numberOfValues = Object.values(updatedNote).filter(Boolean).length;
     if (numberOfValues === 0) {
